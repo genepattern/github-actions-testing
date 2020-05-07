@@ -28,7 +28,10 @@ jobs:
         run:   |
           curl https://github.com/genepattern/github-actions-testing/releases/download/v0.1/GPserver.b249.bin -o GPserver.bin
           ls -alrt
-          echo $IMAGE_NAME
+          echo Image name is $IMAGE_NAME
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          echo Version is $VERSION
+
           docker build . --file Dockerfile --tag $IMAGE_NAME
 
       - name: Log into registry
@@ -54,4 +57,4 @@ jobs:
           echo VERSION=$VERSION
 
           docker tag image $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
+          # docker push $IMAGE_ID:$VERSION
