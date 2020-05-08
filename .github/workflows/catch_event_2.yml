@@ -14,4 +14,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: try something
-      run: echo "here I am ${{ github.event.client_payload }} "
+      run: echo "here I am 1: ${{ github.event.client_payload.ref }} 2: ${{ github.event.client_payload.ref }}"
