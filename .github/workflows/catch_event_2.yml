@@ -1,0 +1,17 @@
+name: Catch event 2
+
+on:
+  repository_dispatch:
+    branches: [ my-event ]
+
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: try something
+      run: echo "here I am"
