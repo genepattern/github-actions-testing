@@ -1,0 +1,16 @@
+name: Docker Image CI
+
+on:
+  repository_dispatch:
+    types: [ my-event ]
+jobs:
+
+  myEvent:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with: ${{ github.event.client_payload }}
+    - name: try to access event
+      run: echo ${{ github.event.client_payload }}
