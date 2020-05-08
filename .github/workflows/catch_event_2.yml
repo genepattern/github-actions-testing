@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: try something
-      run:  |
+      run:   |
         echo "STARTING"
         REF_IN=${{ github.event.client_payload.ref }}
         VERSION=${REF_IN#*/tags/}
