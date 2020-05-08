@@ -26,35 +26,8 @@ jobs:
           REF_IN=${{ github.event.client_payload.ref }}
           VERSION=${REF_IN#*/tags/}
           INSTALLER_URL=https://github.com/genepattern/github-actions-testing/releases/download/${VERSION}/GPserver.bin
-          # curl https://github.com/genepattern/github-actions-testing/releases/download/$VERSION/GPserver.bin -o GPserver.bin
           echo Image name is ${IMAGE_NAME}:${VERSION}
-          #VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          #echo Version is $VERSION
           docker build --build-arg GP_INSTALLER=${INSTALLER_URL} -t ${IMAGE_NAME}:${VERSION}  .
           
           # TBD PUSH THE IMAGE INTO DOCKERHUB
-
-      - name: Log into registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-
-      - name: Pull image
-        run: |
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
-          
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
-
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-
-          docker tag image $IMAGE_ID:$VERSION
-          # docker push $IMAGE_ID:$VERSION
+          echo DONE
