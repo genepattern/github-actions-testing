@@ -32,4 +32,6 @@ jobs:
           docker build --build-arg GP_INSTALLER=${INSTALLER_URL} -t ${IMAGE_NAME}:${VERSION}  .
           
           # TBD PUSH THE IMAGE INTO DOCKERHUB
+          docker login -u liefeld -p ${{ secrets.Teds_dockerhub_token }}
+          docker push ${IMAGE_NAME}:${VERSION}
           echo DONE
